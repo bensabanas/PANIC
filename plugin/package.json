@@ -1,0 +1,29 @@
+{
+  "name": "@panic/openclaw-plugin",
+  "version": "0.1.0",
+  "description": "PANIC — Persistent memory for AI assistants. Context engine plugin for OpenClaw.",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch"
+  },
+  "openclaw": {
+    "extensions": ["./dist/index.js"],
+    "compat": {
+      "pluginApi": ">=2026.3.24-beta.2",
+      "minGatewayVersion": "2026.3.24-beta.2"
+    },
+    "build": {
+      "openclawVersion": "2026.3.24-beta.2",
+      "pluginSdkVersion": "2026.3.24-beta.2"
+    }
+  },
+  "peerDependencies": {
+    "openclaw": "*"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "@sinclair/typebox": "^0.32.0"
+  }
+}

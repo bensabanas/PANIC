@@ -1,0 +1,31 @@
+{
+  "id": "panic",
+  "name": "PANIC",
+  "description": "Persistent memory for AI assistants — 4-layer memory with retrieval, extraction, and profiles",
+  "version": "0.1.0",
+  "kind": "context-engine",
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "profile": {
+        "type": "string",
+        "description": "Active PANIC profile name (default: 'default')",
+        "default": "default"
+      },
+      "sidecarPort": {
+        "type": "number",
+        "description": "Port for the Python sidecar API (default: 7420)",
+        "default": 7420
+      },
+      "pythonPath": {
+        "type": "string",
+        "description": "Path to Python binary (default: auto-detect from PANIC venv)"
+      },
+      "panicRoot": {
+        "type": "string",
+        "description": "Path to the PANIC project root (default: auto-detect)"
+      }
+    }
+  }
+}

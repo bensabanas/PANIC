@@ -1,0 +1,60 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+*.egg
+
+# Node
+node_modules/
+plugin/dist/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# PANIC runtime data (lives in ~/.openclaw/panic/, not in repo)
+sessions/
+models/
+
+# Old backups & experiment phases (not for distribution)
+panic.bak.*/
+tests.bak.*/
+models.bak.*/
+.archived/
+*.bak
+*.bak.*
+*.bak.v*
+*.bak.phase*
+*.bak.pre_*
+.pytest_cache/
+
+# Evaluation scripts (dev-only, not needed for runtime)
+evaluate.py
+evaluate_v2.py
+evaluate_v3.py
+evaluate_v4.py
+evaluate_v5.py
+evaluation/
+diagnose*.py
+train*.py
+test_plugin_e2e.py
+
+# Binary model weights
+*.pt
+*.bin
+*.onnx
+
+# Experiment notes (keep SPEC files)
+EXPERIMENTS.md
+
+# Old spec/file backups
+*.md.bak.*
+SPEC.md.bak*
+panic/api.py.bak*
+evaluate_v4.py.bak*
