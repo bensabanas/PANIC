@@ -110,34 +110,16 @@ Working memory tracks the current session's conversation state using embeddings 
 Each session produces an episode file:
 
 ```markdown
-# Episode: 2026-04-15 — PANIC Product Architecture
 
 ## Metadata
-- **Date:** 2026-04-15
-- **Profile:** panic-dev
-- **Turns:** 127
-- **Duration:** 2h 15m
-- **Model:** claude-opus-4
 
 ## Summary
-Discussed refactoring PANIC from eval harness to OpenClaw plugin.
-Decided on 4-layer memory architecture: working, episodic, semantic,
-procedural. Confirmed layered context injection with token budgets
-and markdown storage.
 
 ## Key Facts Established
-- PANIC will be an OpenClaw plugin
-- Storage format: markdown files (not JSON/SQLite)
-- Profiles enable separate memory stores per context
-- Retrieval uses layered injection with per-layer token budgets
 
 ## Important Moments
-- Turn 23: Decision to use markdown over JSON (shifted storage architecture)
-- Turn 45: Confirmed persistent state across sessions as product differentiator
-- Turn 61: Confirmation of layered injection with budgets
 
 ## Entities
-- PANIC, OpenClaw, Ben, profiles, markdown
 ```
 
 **Extraction timing:**
@@ -150,75 +132,16 @@ and markdown storage.
 Accumulated knowledge stored in markdown files within the profile:
 
 **entities.md** — People, projects, places, tools, and their relationships.
-```markdown
-## Ben
-- Role: Developer, PANIC creator
-- Timezone: Europe/Vienna
-- Communication: Blunt, factual, prefers no filler
-- First mentioned: 2026-04-14
-
-## PANIC
-- Type: Software project
-- Location: /Users/ben/Desktop/panic/
-- Language: Python 3.13
-- Purpose: Persistent memory system for AI assistants
-- Related: OpenClaw (target platform)
-```
 
 **facts.md** — Established knowledge, soft-deduplicated.
-```markdown
-## Architecture
-- Cosine similarity on embeddings does 55-75% of retrieval work
-- Graph boost adds 15-20% improvement via entity connectivity
-- Blended embeddings (0.7 item / 0.3 turn) is the key retrieval lever
-- Established: 2026-04-19
-
-## Decisions
-- Markdown files for storage, not JSON/SQLite — Established: 2026-04-15
-- No automatic memory decay — Established: 2026-04-15
-```
 
 **preferences.md** — User patterns and preferences.
-```markdown
-## Work Style
-- Experiments tested one at a time with report + confirmation before proceeding
-- Prefers manual control with good UI (dropdown) over full automation
-- Values transparency: wants to see and edit stored memory
-
-## Communication
-- Blunt, factual, no filler
-- Wants polite formal behavior, not cheerful
-```
 
 **Extraction:** Semantic facts are extracted heuristically per turn (from the graph engine's entity/relationship triples — zero extra LLM cost). Preferences are extracted by LLM at session end, bundled with the episodic summary call.
 
 **Soft deduplication:** Only merge when obviously the same entity + relationship + value. Slightly different phrasings are kept as separate entries. Storage is cheap; nuance is not.
 
 ### Layer 4: Procedural Memory (cross-session, learned)
-
-**workflows.md** — How the user works.
-```markdown
-## PANIC Development
-- Run eval: `python evaluate_v5.py smoke|standard|stress|marathon`
-- Always use PTY and DYLD_LIBRARY_PATH for Python
-- Test one experiment at a time, report results, wait for confirmation
-- Established: 2026-04-14
-```
-
-**failures.md** — What didn't work and why.
-```markdown
-## Reservoir / LSM for Retrieval
-- Extensive testing (phases 1-5, experiments #1-#8, TenTenTen flux)
-- Reservoir state has NO discriminative power for retrieval
-- Cannot tell planted facts from filler
-- Readout MLP, reranker, pattern separator, cerebellar expansion — all dead weight
-- Simplification to embeddings + graph matched or beat full reservoir pipeline
-- Date: 2026-04-19
-
-## Experiment #4: Cerebellar Expansion
-- 384→12288 over-separated inputs, killed working memory surprise discriminative power
-- Date: 2026-04-14
-```
 
 **Extraction:** LLM-generated at session end, bundled with episodic summary. One LLM call produces episodic + preferences + procedural updates.
 
@@ -360,21 +283,9 @@ By default, retrieval is scoped to the active profile. Optional cross-profile se
 
 Note: These benchmarks are from synthetic evaluation data. Real conversation performance will differ and needs separate validation.
 
-### Why No Reservoir
-
-The reservoir (Liquid State Machine) was extensively tested across 5 phases, 8 bio-inspired experiments, and a dedicated research branch (TenTenTen). Key findings:
-
-- Reservoir state has **no discriminative power** for retrieval — cannot tell planted facts from filler
-- Readout MLP, reranker, pattern separator, lateral inhibition, cerebellar expansion — all dead weight for retrieval
-- Removing everything except embeddings + dual graph produces **equal or better accuracy at 5-6x the speed**
-- The candidate embedding blend ratio (0.7/0.3) was the single biggest improvement (+28pp multi-hop), not any reservoir component
-- LLM graph non-determinism is the dominant variance source, not architecture
-
-The reservoir research continues separately in the TenTenTen project for non-retrieval applications (behavioral fingerprinting).
 
 ## Open Items
 
-- [ ] OpenClaw plugin integration — hook points, message pipeline, UI surface
 - [ ] Real conversation benchmarking (vs. synthetic eval)
 - [ ] Cross-profile search implementation
 - [ ] Token budget tuning per profile type
