@@ -6,7 +6,7 @@ set -euo pipefail
 # Installs the PANIC memory engine as an OpenClaw plugin.
 #
 # Usage:
-#   curl -fsSL https://raw.githubusercontent.com/user/panic/main/install.sh | bash
+#   curl -fsSL https://raw.githubusercontent.com/bensabanas/panic/main/install.sh | bash
 #   — or —
 #   cd /path/to/panic && bash install.sh
 #
