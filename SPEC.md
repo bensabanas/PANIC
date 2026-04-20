@@ -1,6 +1,7 @@
-# PANIC v2 — Product Specification
+# PANIC — Product Specification
 
-*"Don't Panic"* — Douglas Adams
+(PANIC is a reference to the Hitchhiker's Guide to the Galaxy)
+All feedback and comments are welcome.
 
 ## Overview
 
