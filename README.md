@@ -1,6 +1,6 @@
 # PANIC — Persistent Memory for AI Assistants
 
-> *"Don't Panic"* — a memory engine that gives your AI assistant persistent, structured memory across conversations.
+A memory engine that gives your AI assistant persistent, structured, **local**  memory across conversations.
 
 PANIC is an [OpenClaw](https://github.com/openclaw/openclaw) context engine plugin. It replaces the default context assembly pipeline with a 4-layer memory system that remembers facts, preferences, workflows, and conversation history across sessions.
 
@@ -80,7 +80,7 @@ All persistent memory is stored as markdown files in `~/.openclaw/panic/profiles
 ## Install
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/panic.git
+git clone https://github.com/bensabanas/panic.git
 cd panic
 bash install.sh
 ```
@@ -179,7 +179,3 @@ Tested at 50, 200, and 500 conversation turns:
 | 500 | 97% | 74% | 67% | 11ms |
 
 Multi-hop variance is due to LLM graph extraction non-determinism — the retrieval engine itself is deterministic.
-
-## License
-
-MIT
