@@ -12,7 +12,7 @@ The schema is append-friendly: turns are inserted, never updated.
 
 Note: reservoir_state table is kept in the schema for backward compatibility
 with existing databases (so old DBs don't break on open) but is no longer
-written to or read from. Safe to drop in a future migration.
+written to or read from.
 """
 
 import sqlite3
