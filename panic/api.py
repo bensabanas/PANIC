@@ -1,5 +1,5 @@
 """
-PANIC FastAPI Backend — v5 Simplified (No Reservoir)
+PANIC FastAPI Backend 
 
 REST API serving the PANIC pipeline:
   - POST /chat — send a message, get PANIC-enhanced LLM response
@@ -16,7 +16,6 @@ Retrieval engine: embeddings + dual graph (rule-based + LLM extraction)
   - Rule-based graph: sparse, precise contradiction detection
   - LLM graph: dense, high-recall multi-hop connectivity
   - Graph boost blended by query type classifier
-  - No reservoir, no readout, no reranker, no pattern separator
 """
 
 import os
@@ -115,8 +114,6 @@ class PanicEngine:
       - Graph boost blended by query type
       - Recency tiebreaker
       - Multi-hop expansion
-
-    No reservoir, readout, reranker, pattern separator, or snapshots.
     """
 
     def __init__(self):
@@ -821,7 +818,7 @@ class PanicEngine:
 
 # --- FastAPI App ---
 
-app = FastAPI(title="PANIC", description="Don't Panic — Persistent memory for AI assistants (v5 simplified)")
+app = FastAPI(title="PANIC", description="Persistent memory for AI assistants")
 
 # Allow dashboard embeds to access the sidecar API
 app.add_middleware(
@@ -855,7 +852,7 @@ async def root():
     index = FRONTEND_DIR / "index.html"
     if index.exists():
         return FileResponse(index)
-    return {"message": "PANIC API is running (v5 simplified). Frontend not found at /frontend/index.html"}
+    return {"message": "PANIC API is running. Frontend not found at /frontend/index.html"}
 
 
 @app.post("/api/connect")
