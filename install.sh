@@ -120,6 +120,11 @@ step 3 "Installing Python dependencies"
 
 ok "Python dependencies installed"
 
+# Download spaCy English model (required by the rule-based extractor)
+"$VENV_PY" -m spacy download en_core_web_sm >/dev/null 2>&1 \
+  && ok "spaCy model 'en_core_web_sm' installed" \
+  || warn "spaCy model download failed — sidecar will not start without it. Run: $VENV_PY -m spacy download en_core_web_sm"
+
 # ── Step 4: Download encoder model ──
 step 4 "Downloading sentence-transformers encoder model"
 
