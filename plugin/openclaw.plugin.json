@@ -4,6 +4,9 @@
   "description": "Persistent memory for AI assistants — 4-layer memory with retrieval, extraction, and profiles",
   "version": "0.1.0",
   "kind": "context-engine",
+  "contracts": {
+    "tools": ["panic_status"]
+  },
   "configSchema": {
     "type": "object",
     "additionalProperties": false,
